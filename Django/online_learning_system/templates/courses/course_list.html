@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Course List{% endblock %}
+
+{% block content %}
+<div class="container-ld">
+        <h1>Course List</h1>
+        <a href="{% url 'course_create' %} " class="button-link">Create Course</a>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Instructor</th>
+                <th scope="col">Category</th>
+                <th scope="col">Tag</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+                <th scope="col">Publish</th>
+                <th scope="col">Create Date</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>    
+                {% for course in courses %}    
+                    <tr>
+                        <th scope="row">{{course.id}}</th>    
+                        <td>{{course.title}}</td>
+                        <td>{{course.description}}</td>
+                        <td>{{course.instructor}}</td>
+                        <td>{{course.category}}</td>
+                        <td>
+                            {% for tag in course.tags.all %}
+                                {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                No tags
+                            {% endfor %}
+                        </td>
+                        <td>${{course.price}}</td>
+                        <td>
+                            {% if course.image %}
+                                <img src="{{ course.image.url }}" alt="{{ course.title }}" width="100">
+                            {% else %}
+                                No image
+                            {% endif %}
+                        </td>
+                        <td>{{course.published}}</td>
+                        <td>{{course.created_date|date:"F j, Y"}}</td>
+                        <td>
+                            <a href="{% url 'course_update' course.id %} " class="button-link button-sm">Edit</a>
+                            <a href="{% url 'course_delete' course.id %} " class="button-link button-sm delete-btn">Delete</a>
+                        </td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

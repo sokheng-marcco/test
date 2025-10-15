@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Instructor List{% endblock %}
+
+{% block content %}
+<div class="container-md">
+        <h1>Student List</h1>
+        <a href="{% url 'instructor_create' %} " class="button-link">Create Instructor</a>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">Username</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>    
+                {% for instructor in instructors %}    
+                    <tr>
+                        <th scope="row">{{instructor.id}}</th>    
+                        <td>{{instructor.name}}</td>
+                        <td>{{instructor.age}}</td>
+                        <td>{{instructor.phone}}</td>
+                        <td>{{instructor.address}}</td>
+                        <td>{{instructor.username}}</td>
+                        <td>
+                            <a href="{% url 'instructor_update' instructor.id %} " class="button-link button-sm">Edit</a>
+                            <a href="{% url 'instructor_delete' instructor.id %} " class="button-link button-sm delete-btn">Delete</a>
+                        </td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

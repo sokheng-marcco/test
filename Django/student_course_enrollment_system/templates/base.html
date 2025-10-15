@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <title>{% block title %}Student Enrollment System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'cs/style.css' %}" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="left">Onlie Learning</div>
+      <div class="center">
+        {% comment %} <a href="{% url 'dashboard_home' %}">Dashboard</a> {% endcomment %}
+        <a href="{% url 'student_list' %}">Student</a>
+        <a href="{% url 'teacher_list' %}">Teacher</a>
+        <a href="{% url 'course_list' %}">Course</a>
+        <a href="{% url 'enrollment_list' %}">Enrollment</a>
+      </div>
+      <div class="right">
+        <a href="">Logout</a>
+      </div>
+    </div>
+
+    <div class="container">{% block content %}{% endblock %}</div>
+  </body>
+</html>

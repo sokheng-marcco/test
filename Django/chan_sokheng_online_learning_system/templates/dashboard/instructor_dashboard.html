@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Instructor Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ request.user.username }}</h2>
+
+<h3>Your Courses</h3>
+<ul>
+  {% for course in my_courses %}
+    <li>{{ course.title }} ({{ course.enrollment_count }} students)</li>
+  {% empty %}
+    <li>You haven't created any courses yet.</li>
+  {% endfor %}
+</ul>
+
+<h3>Submissions to Grade</h3>
+<ul>
+  {% for submission in pending_submissions %}
+    <li>{{ submission.assignment.title }} by {{ submission.student.username }}</li>
+  {% empty %}
+    <li>No submissions to grade.</li>
+  {% endfor %}
+</ul>
+
+<h3>Recent Reviews</h3>
+<ul>
+  {% for review in recent_reviews %}
+    <li>{{ review.course.title }} - "{{ review.comment }}" ({{ review.rating }}/5)</li>
+  {% empty %}
+    <li>No recent reviews.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Review List{% endblock %}
+
+{% block content %}
+<div class="container-ld">
+        <h1>Review List</h1>
+        <a href="{% url 'review_create' %} " class="button-link">Create Review</a>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Course Title</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>    
+                {% for review in reviews %}    
+                    <tr>
+                        <th scope="row">{{review.id}}</th>    
+                        <td>{{review.course.title}}</td>
+                        <td>{{review.rating}}</td>
+                        <td>{{review.comment}}</td>
+                        <td>{{review.created_date|date:"F j, Y"}}</td>
+                        <td>
+                            <a href="{% url 'review_update' review.id %} " class="button-link button-sm">Edit</a>
+                            <a href="{% url 'review_delete' review.id %} " class="button-link button-sm delete-btn">Delete</a>
+                        </td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

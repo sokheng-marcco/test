@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %}Category List{% endblock %} {%block content %}
+<div class="container-sm">
+  <h1>Category List</h1>
+  <a href="{% url 'category_create' %}" class="button-link">Add Category</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+      <tr>
+        <th scope="row">{{category.id}}</th>
+        <td>{{category.name}}</td>
+        <td>
+          <a href="{% url 'category_update' category.id %}" class="button-link button-sm">Edit</a>
+          <a href="{% url 'category_delete' category.id %}" class="button-link button-sm delete-btn">Delete</a>
+          
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

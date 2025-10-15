@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ lesson.title }} - Online Learning System{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'course_list' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'course_detail' lesson.course.id %}">{{ lesson.course.title }}</a></li>
+        <li class="breadcrumb-item active">{{ lesson.title }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ lesson.title }}</h2>
+            </div>
+            <div class="card-body">
+                <p>{{ lesson.description }}</p>
+
+                <!-- Video Content -->
+                {% if lesson.video_file %}
+                    <div class="mb-4">
+                        <video width="100%" controls>
+                            <source src="{{ lesson.video_file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                {% elif lesson.video_url %}
+                    <div class="mb-4">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe src="{{ lesson.video_url }}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Document Resource -->
+                {% if lesson.document %}
+                    <div class="mb-4">
+                        <h5>Course Materials</h5>
+                        <a href="{{ lesson.document.url }}" class="btn btn-outline-primary" target="_blank">
+                            📄 Download Document
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <!-- Assignments -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Assignments</h5>
+            </div>
+            <div class="card-body">
+                {% for assignment in assignments %}
+                    <div class="mb-3 border-bottom pb-2">
+                        <h6><a href="{% url 'assignment_detail' assignment.id %}">{{ assignment.title }}</a></h6>
+                        <p class="small">{{ assignment.description|truncatewords:10 }}</p>
+                        <small class="text-muted">Due: {{ assignment.due_date|date:"M d, Y H:i" }}</small><br>
+                        <small class="text-info">Max Score: {{ assignment.max_score }}</small>
+                    </div>
+                {% empty %}
+                    <p>No assignments for this lesson.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

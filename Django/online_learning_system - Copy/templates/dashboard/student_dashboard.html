@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ request.user.username }}</h2>
+
+<h3>Enrolled Courses</h3>
+<ul>
+  {% for enrollment in enrollments %}
+    <li>{{ enrollment.course.title }} (Progress: {{ enrollment.progress }}%)</li>
+  {% empty %}
+    <li>No enrolled courses.</li>
+  {% endfor %}
+</ul>
+
+<h3>Upcoming Assignments</h3>
+<ul>
+  {% for assignment in upcoming_assignments %}
+    <li>{{ assignment.title }} - due {{ assignment.due_date|date:"M d, Y H:i" }}</li>
+  {% empty %}
+    <li>No upcoming assignments.</li>
+  {% endfor %}
+</ul>
+
+<h3>Recent Grades</h3>
+<ul>
+  {% for submission in recent_submissions %}
+    <li>{{ submission.assignment.title }}: {{ submission.grade }}</li>
+  {% empty %}
+    <li>No recent grades.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

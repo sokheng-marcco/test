@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+Student List
+{% endblock %}
+
+{% block content %}
+    <div class="container-md">
+        <h1>Student List!</h1>
+        <a href="{% url 'student_add' %} " class="button-link">Add Student</a>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Address</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>    
+                {% for student in students %}    
+                    <tr>
+                        <th scope="row">{{student.id}}</th>    
+                        <td>{{student.name}}</td>
+                        <td>{{student.age}}</td>
+                        <td>{{student.grade}}</td>
+                        <td>{{student.address}}</td>
+                        <td>{{student.date_of_birth}}</td>
+                        <td>
+                            <a href="{% url 'student_edit' student.id %} " class="button-link button-sm">Edit</a>
+                            <a href="{% url 'student_delete' student.id %} " class="button-link button-sm delete-btn">Delete</a>
+                        </td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%endblock%}

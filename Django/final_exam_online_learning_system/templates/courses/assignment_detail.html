@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ assignment.title }} - Online Learning System{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'course_list' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'course_detail' assignment.lesson.course.id %}">{{ assignment.lesson.course.title }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'lesson_detail' assignment.lesson.id %}">{{ assignment.lesson.title }}</a></li>
+        <li class="breadcrumb-item active">{{ assignment.title }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ assignment.title }}</h2>
+            </div>
+            <div class="card-body">
+                <p>{{ assignment.description }}</p>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <strong>Due Date:</strong> 
+                        <span class="{% if assignment.due_date < now %}text-danger{% else %}text-success{% endif %}">
+                            {{ assignment.due_date|date:"M d, Y H:i" }}
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Max Score:</strong> {{ assignment.max_score }} points
+                    </div>
+                </div>
+
+                {% if user.role == 'student' %}
+                    {% if submission %}
+                        <div class="alert alert-info">
+                            <h5>Your Submission</h5>
+                            <p><strong>Submitted:</strong> {{ submission.submitted_date|date:"M d, Y H:i" }}</p>
+                            
+                            {% if submission.file_submission %}
+                                <p><strong>File:</strong> <a href="{{ submission.file_submission.url }}" target="_blank">{{ submission.file_submission.name }}</a></p>
+                            {% endif %}
+                            
+                            {% if submission.text_submission %}
+                                <p><strong>Text Submission:</strong></p>
+                                <div class="border p-3 bg-light">
+                                    {{ submission.text_submission|linebreaks }}
+                                </div>
+                            {% endif %}
+
+                            {% if submission.graded %}
+                                <div class="mt-3">
+                                    <h6>Grade: <span class="badge bg-primary">{{ submission.score }}/{{ assignment.max_score }}</span></h6>
+                                    {% if submission.feedback %}
+                                        <p><strong>Feedback:</strong></p>
+                                        <div class="border p-3 bg-light">
+                                            {{ submission.feedback|linebreaks }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <p class="text-warning">⏳ Waiting for grade...</p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <!-- Submission Form -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Submit Assignment</h5>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="{{ form.file_submission.id_for_label }}" class="form-label">File Upload (Optional)</label>
+                                        {{ form.file_submission }}
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="{{ form.text_submission.id_for_label }}" class="form-label">Text Submission (Optional)</label>
+                                        {{ form.text_submission }}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit Assignment</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Assignment Info</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Course:</strong> {{ assignment.lesson.course.title }}</p>
+                <p><strong>Lesson:</strong> {{ assignment.lesson.title }}</p>
+                <p><strong>Created:</strong> {{ assignment.created_date|date:"M d, Y" }}</p>
+                <p><strong>Points:</strong> {{ assignment.max_score }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

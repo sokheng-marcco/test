@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }} - Online Learning System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img-top" style="height: 300px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+                <h1 class="card-title">{{ course.title }}</h1>
+                <p class="card-text">{{ course.description }}</p>
+                
+                <div class="mb-3">
+                    <strong>Instructor:</strong> {{ course.instructor.get_full_name|default:course.instructor.username }}<br>
+                    <strong>Category:</strong> {{ course.category.name }}<br>
+                    <strong>Price:</strong> <span class="text-success">${{ course.price }}</span><br>
+                    <strong>Tags:</strong> 
+                    {% for tag in course.tags.all %}
+                        <span class="badge bg-secondary">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+
+                {% if user.is_authenticated and user.role == 'student' %}
+                    {% if is_enrolled %}
+                        <div class="alert alert-success">
+                            <strong>You are enrolled in this course!</strong>
+                            <div class="progress mt-2">
+                                <div class="progress-bar" role="progressbar" style="width: {{ enrollment.progress }}%">
+                                    {{ enrollment.progress }}% Complete
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'add_review' course.id %}" class="btn btn-warning">Write a Review</a>
+                    {% else %}
+                        <form method="post" action="{% url 'enroll_course' course.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-lg">Enroll in Course</button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Lessons -->
+        {% if is_enrolled or user.role != 'student' %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4>Course Lessons</h4>
+                </div>
+                <div class="card-body">
+                    {% for lesson in lessons %}
+                        <div class="border-bottom pb-3 mb-3">
+                            <h5>
+                                {% if is_enrolled or user.role != 'student' %}
+                                    <a href="{% url 'lesson_detail' lesson.id %}">{{ lesson.order }}. {{ lesson.title }}</a>
+                                {% else %}
+                                    {{ lesson.order }}. {{ lesson.title }}
+                                {% endif %}
+                            </h5>
+                            <p>{{ lesson.description|truncatewords:20 }}</p>
+                        </div>
+                    {% empty %}
+                        <p>No lessons available yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-4">
+        <!-- Course Stats -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Course Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Students Enrolled:</strong> {{ course.get_enrolled_count }}</p>
+                <p><strong>Lessons:</strong> {{ lessons.count }}</p>
+                <p><strong>Created:</strong> {{ course.created_date|date:"M d, Y" }}</p>
+            </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="card">
+            <div class="card-header">
+                <h5>Student Reviews</h5>
+            </div>
+            <div class="card-body">
+                {% for review in reviews %}
+                    <div class="mb-3 border-bottom pb-2">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ review.student.username }}</strong>
+                            <span class="text-warning">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
+                                {% endfor %}
+                            </span>
+                        </div>
+                        <p class="mb-1">{{ review.comment }}</p>
+                        <small class="text-muted">{{ review.created_date|date:"M d, Y" }}</small>
+                    </div>
+                {% empty %}
+                    <p>No reviews yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

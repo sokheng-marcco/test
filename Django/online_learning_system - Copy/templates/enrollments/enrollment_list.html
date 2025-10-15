@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Enrollmet List{% endblock %}
+
+{% block content %}
+<div class="container-md">
+        <h1>Enrollmet List</h1>
+        <a href="{% url 'enrollment_create' %} " class="button-link">Create Enrollmet</a>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student</th>
+                <th scope="col">Course</th>
+                <th scope="col">Enrolled Date</th>
+                <th scope="col">Complete</th>
+                <th scope="col">Progress</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>    
+                {% for enrollment in enrollments %}    
+                    <tr>
+                        <th scope="row">{{enrollment.id}}</th>    
+                        <td>{{enrollment.student.name}}</td>
+                        <td>{{enrollment.course.title}}</td>
+                        <td>{{enrollment.enrolled_date|date:"F j, Y"}}</td>
+                        <td>{{enrollment.complete|yesno:"Yes,No" }}</td>
+                        <td>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: {{enrollment.progress}}%;"></div>
+                            </div>
+                            {{ enrollment.progress }}%
+                        </td>
+                        <td>
+                            <a href="{% url 'enrollment_update' enrollment.id %} " class="button-link button-sm">Edit</a>
+                            <a href="{% url 'enrollment_delete' enrollment.id %} " class="button-link button-sm delete-btn">Delete</a>
+                        </td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

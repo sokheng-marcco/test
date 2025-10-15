@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Product List
+{% endblock title %}
+
+
+{% block content %}
+<div class="container-md">
+  <h1>Product List</h1>
+  <a href="{% url 'product_create' %} " class="button-link">Add Product</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">CostPrice</th>
+        <th scope="col">SellingPrice</th>
+        <th scope="col">Unit</th> 
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <th scope="row">{{product.id}}</th>
+        <td>{{product.name}}</td>
+        <td>{{product.category.name}}</td>
+        <td>{{product.cost_price}}</td>
+        <td>{{product.selling_price}}</td>
+        <td>{{product.unit}}</td>
+        <td>
+          <a href="{% url 'product_update' product.id %}" class="button-link button-sm">Edit</a>
+          <a href="{% url 'product_delete' product.id %}" class="button-link button-sm delete-btn">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

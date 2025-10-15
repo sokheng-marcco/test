@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Tag List{% endblock %}
+
+{% block content %}
+<div class="container-md">
+        <h1>Tag List</h1>
+        <a href="{% url 'tag_create' %} " class="button-link">Tag Category</a>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>    
+                {% for tag in tags %}    
+                    <tr>
+                        <th scope="row">{{tag.id}}</th>    
+                        <td>{{tag.name}}</td>
+                        <td>
+                            <a href="{% url 'tag_update' tag.id %} " class="button-link button-sm">Edit</a>
+                            <a href="{% url 'tag_delete' tag.id %} " class="button-link button-sm delete-btn">Delete</a>
+                        </td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

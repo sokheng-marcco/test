@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Add Supplier{% endblock %}
+
+{% block content %}
+  <div class="container-md">
+    <h2>Order Details</h2>
+    <a href="{% url 'order_list' %}" class="button-link">Order List</a>
+    <p><strong>Order ID:</strong> {{ order.id }}</p>
+    <p><strong>Customer:</strong> {{ order.customer.name }}</p>
+    <p><strong>Employee:</strong> {{ order.employee.name }}</p>
+    <p><strong>Total Amount:</strong> ${{ order.total_amount }}</p>
+    <p><strong>Total Paid:</strong> ${{ order.total_paid }}</p>
+    <p><strong>Total Remain:</strong> ${{ order.total_remain }}</p>
+    <p><strong>Created At:</strong> {{ order.created_at }}</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in order.items.all %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.total_price }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock content %}

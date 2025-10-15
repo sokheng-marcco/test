@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block content %}
+<h2>Employee Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-primary">{{ stats.total_users }}</h3>
+                <p>Total Users</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-success">{{ stats.total_students }}</h3>
+                <p>Students</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-info">{{ stats.total_instructors }}</h3>
+                <p>Instructors</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-warning">{{ stats.total_courses }}</h3>
+                <p>Courses</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-success">{{ stats.published_courses }}</h3>
+                <p>Published</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3 class="text-primary">{{ stats.total_enrollments }}</h3>
+                <p>Enrollments</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Recent Enrollments</h4>
+            </div>
+            <div class="card-body">
+                {% for enrollment in recent_enrollments %}
+                    <div class="mb-2">
+                        <strong>{{ enrollment.student.username }}</strong> enrolled in 
+                        <strong>{{ enrollment.course.title }}</strong>
+                        <small class="text-muted d-block">{{ enrollment.enrolled_date|date:"M d, Y H:i" }}</small>
+                    </div>
+                {% empty %}
+                    <p>No recent enrollments.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Recent Courses</h4>
+            </div>
+            <div class="card-body">
+                {% for course in recent_courses %}
+                    <div class="mb-2">
+                        <strong><a href="{% url 'course_detail' course.id %}">{{ course.title }}</a></strong>
+                        <span class="badge bg-{% if course.published %}success{% else %}warning{% endif %} ms-2">
+                            {% if course.published %}Published{% else %}Draft{% endif %}
+                        </span>
+                        <small class="text-muted d-block">by {{ course.instructor.username }} - {{ course.created_date|date:"M d, Y" }}</small>
+                    </div>
+                {% empty %}
+                    <p>No recent courses.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <h4>Management Links</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="/admin/accounts/user/" class="list-group-item list-group-item-action">Manage Users</a>
+                <a href="/admin/accounts/student/" class="list-group-item list-group-item-action">Manage Students</a>
+                <a href="/admin/accounts/instructor/" class="list-group-item list-group-item-action">Manage Instructors</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="/admin/courses/course/" class="list-group-item list-group-item-action">Manage Courses</a>
+                <a href="/admin/courses/category/" class="list-group-item list-group-item-action">Manage Categories</a>
+                <a href="/admin/courses/tag/" class="list-group-item list-group-item-action">Manage Tags</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href="/admin/courses/enrollment/" class="list-group-item list-group-item-action">Manage Enrollments</a>
+                <a href="/admin/courses/review/" class="list-group-item list-group-item-action">Manage Reviews</a>
+                <a href="/admin/courses/submission/" class="list-group-item list-group-item-action">Manage Submissions</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
