@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        num = 0;
+        for(let i = 0; num <= 10; i++) {
+            console.log(num); 
+            num += 2;
+        }
+
+        for (let i = 5; i >= 0; i--) {
+            console.log(i); 
+        }
+        */
+        
+        const arr = [1, 2, 3];
+        const arr2 = [4, 5, 6];
+        const arr3 = [7, 8, 9, -10, -11, -12];
+        
+        // for (let i = 0; i < arr.length; i++) {
+        //     arr[i] += 1;
+        // }
+        // console.log(arr);
+
+        function addOne(arr) {
+            for (let i = 0; i < arr.length; i++) {
+                arr[i] += 1;
+            }
+            return arr;
+        }
+
+        function addNum(arr, num) {
+            for (let i = 0; i < arr.length; i++) {
+                arr[i] += num;
+            }
+            return arr;
+        }
+
+        function addArray(arr, arr2) {
+            if (arr.length !== arr2.length) {
+                return undefined; 
+            }
+            for (let i = 0; i < arr.length; i++) {
+                arr[i] += arr2[i];
+            }
+            return arr;
+        }
+
+        function countPositive(arr) {
+            let count = 0;
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] > 0) {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        // console.log(addOne(arr));
+        // console.log(addOne(arr2)); 
+        // console.log(addNum(arr, 2));
+        // console.log(addNum(arr2, 3));
+        console.log(addArray(arr, arr2));
+        console.log(countPositive(arr3));
+
+    </script>
+</body>
+</html>

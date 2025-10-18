@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(102, 104, 102);
+        }
+    </style>
+</head>
+<body>
+    <button onclick="
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        Show Quatity
+    </button>
+
+    <button onclick="
+        cardQuatity++
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        +1
+    </button>
+    
+    <button onclick="
+        cardQuatity += 2
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        +2
+    </button>
+    
+    <button onclick="
+        cardQuatity += 3
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        +3
+    </button>
+
+    <button onclick="
+        cardQuatity += 4
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        +4
+    </button>
+
+    <button onclick="
+        cardQuatity += 5
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        +5
+    </button>
+
+    <button onclick="
+        cardQuatity -= 1
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        Remove from Card
+    </button>
+
+    <button onclick="
+        cardQuatity -= 2
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        Remove 2 from Card
+    </button>
+
+    <button onclick="
+        cardQuatity -= 3
+        console.log(`Show Card Quatity: ${cardQuatity}`)">
+        Remove 3 from Card
+    </button>
+
+    <button onclick="
+        cardQuatity = 0
+        console.log(`Card Quatity Clear: ${cardQuatity}`)">
+        Clear Quatity
+    </button>
+    <script>
+        let cardQuatity = 0
+    </script>
+</body>
+</html>

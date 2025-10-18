@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(102, 104, 102);
+        }
+    </style>
+</head>
+<body>
+    <button onclick="
+        cardQuatity >= maxCardQuatity ? alert('The cart is full!') : cardQuatity++,
+                console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">+1
+    </button>
+    
+    <button onclick="
+        cardQuatity > maxCardQuatity ? alert('The cart is full!') : cardQuatity += 2,
+                console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">+2
+    </button>
+    
+    <button onclick="
+        cardQuatity > maxCardQuatity ? alert('The cart is full!') : cardQuatity += 3,
+                console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">+3
+    </button>
+
+    <button onclick="
+        cardQuatity > maxCardQuatity ? alert('The cart is full!') : cardQuatity += 4,
+                console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">+4
+    </button>
+
+    <button onclick="
+        cardQuatity > maxCardQuatity ? alert('The cart is full!') : cardQuatity += 5, 
+                console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">+5
+    </button>
+
+    <button onclick="
+        cardQuatity <= minCardQuatity ? alert('Not enough items in Card!') : cardQuatity -= 1,
+                console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">-1
+    </button>
+
+    <button onclick="
+        cardQuatity <= minCardQuatity ? alert('Not enough items in Card!') : cardQuatity -= 2,
+                console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">-2
+    </button>
+
+    <button onclick="
+        cardQuatity <= minCardQuatity ? alert('Not enough items in Card!') : cardQuatity -= 3,
+                console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">-3
+    </button><br>
+
+    <button onclick="
+        console.log(`Show Card Quatity: ${cardQuatity}`)
+        ">Show Quatity
+    </button>
+
+    <button onclick="
+        cardQuatity = 0
+        console.log(`Card Quatity Clear: ${cardQuatity}`)
+        ">Clear Quatity
+    </button>
+
+    <script>
+        let cardQuatity = 0;
+        const maxCardQuatity = 10;
+        const minCardQuatity = 0;
+    </script>
+</body>
+</html>

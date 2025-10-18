@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function countWords(words) {
+            let duoplicate = '';
+            const wordList = [];
+
+            if(words.length !== 0) {
+                wordList.push(words); 
+            }
+            return wordList;
+            
+            
+            for (let i = 0; i < wordList.length; i++) {
+                const word = wordList[i];
+                if (word === "") {
+                    continue; 
+                }
+                duoplicate = word;             
+            }
+            return `jasfvqcebfjdwhefdkjfhj${duoplicate}`;
+        }
+
+        console.log(countWords(["hello", "world", "hello", ""])); 
+        console.log(countWords(["test", "test", "example"]));
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function</title>
+</head>
+<body>
+
+
+    <script>
+        // function greet (name = 'Hi, there!') {
+        //     console.log(`Hello ${name}`)
+        // }
+        // greet('mee');
+        // greet('lee');
+        // greet();
+        /*
+        let fahrenheit;
+        let celsius;
+
+        function convertToFahrenheit(celsius) {
+            fahrenheit = (celsius*9/5) + 32;
+            // console.log(fahrenheit);
+            return fahrenheit;
+        }
+
+        function convertToCelsius(fahrenheit) {
+            celsius = (fahrenheit - 32) *5/9;
+            // console.log(celsius)
+            return celsius;
+        }
+
+        function converTemperature(degreess, unit) {
+            if(unit === 'C') {
+                convertToFahrenheit(degreess);
+                return fahrenheit;
+            } else {
+                convertToCelsius(degreess);
+                return celsius;
+            }
+        }
+
+        console.log(convertToFahrenheit(25));
+        console.log(convertToCelsius(86)); 
+        console.log(converTemperature(35, 'C'));
+        console.log(converTemperature(86, 'F')); 
+        */
+
+        let km;
+        let miles;
+        let unit = '';
+        function convertLeght (leght, from , to) {
+            if (from === 'km' && to === 'miles') {
+                km = leght / 1.6;
+                return km;
+            } else if(from === 'km' && to === 'km') {
+                return km = leght;
+            } else if(from === 'miles' && to === 'miles') {
+                return miles = leght; 
+            } else if (from === 'miles' && to === 'km')  {
+                miles = leght * 1.6;
+                return miles;
+            } else {
+                unit = from;
+                return `invalid unit ${unit}`;
+            }
+        }
+        console.log(convertLeght(50, 'miles', 'km'));
+        console.log(convertLeght(32, 'km', 'miles'));
+        console.log(convertLeght(50, 'km', 'km'));
+        console.log(convertLeght(100, 'miles', 'miles'));
+        console.log(convertLeght(100, 'ibs', 'ibs'));
+    </script>
+</body>
+</html>

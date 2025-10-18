@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function convertLength (lenght , from, to) {
+            result = '';
+
+            if (from === 'km' && to === 'km') {
+                result = lenght;
+                return `${result} km`;
+            } else if (from === 'miles' && to === 'miles') {
+                result = lenght;
+                return `${result} miles`;
+            } else if (from === 'ft' && to === 'ft') {
+                result = lenght;
+                return `${result} ft`;
+            } else if (from === 'km' && to === 'miles') {
+                result = lenght / 1.6;
+                return `${result} miles`;
+            } else if (from === 'miles' && to === 'km') {
+                result = lenght * 1.6;
+                return `${result} km`;
+            } else if (from === 'miles' && to === 'miles') {
+                result = lenght;
+                return `${result} miles`;
+            } else if (from === 'miles' && to === 'ft') {
+                result = lenght * 5280;
+                return `${result} ft`;
+            } else if (from === 'km' && to === 'ft') {
+                result = lenght * 3281;
+                return `${result} ft`;
+            } else if (from === 'ft' && to === 'miles') {
+                result = lenght / 5280;
+                return `${result} miles`;
+            } else if (from === 'ft' && to === 'km') {
+                result = lenght / 3281;
+                return `${result} km`;
+            } else {
+                return `Invalid unit ${from}, ${to}`;
+            }
+        }
+
+        console.log(convertLength(5, 'miles', 'km'));
+        console.log(convertLength(5, 'km', 'ft'));
+        console.log(convertLength(5, 'miles', 'ft'));
+        console.log(convertLength(5, 'ibs', 'ibs'));
+    </script>
+</body>
+</html>

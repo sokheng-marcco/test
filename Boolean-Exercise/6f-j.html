@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let randomNum = Math.random();
+        let coinFlip = ''
+
+        randomNum < 0.5 ? coinFlip = 'heads' : coinFlip = 'tails';
+
+        let result = coinFlip;
+        let guess = 'tails';
+
+        result === guess ? console.log(`Youa guess ${guess} is right, you Win!`) : 
+                console.log(`Youa guess ${guess} is not right, you lose!`)
+
+    </script>
+</body>
+</html>

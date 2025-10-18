@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function minNum(arr) {
+            let min = arr[0];
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] < min) {
+                    min = arr[i];
+                }
+            }
+            return min;
+        }   
+
+        function maxNum(arr) {
+            let max = arr[0];
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] > max) {
+                    max = arr[i];
+                }
+            }
+            return max;
+        }
+
+        function minMaxNum(arr) {
+            let min = arr[0];
+            let max = arr[0];
+
+            if(arr.length === 0) {
+                return {min: null, max: null };
+            }
+
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] < min) {
+                    min = arr[i];
+                }
+                if (arr[i] > max) {
+                    max = arr[i];
+                }
+            }
+            return { min, max };
+        }
+
+        let arr = [3, 1, 4, 1, 5, 9, 2, 6, 5];
+        let arr2 = [];
+        let arr3 = [-1];
+
+        console.log(minNum(arr)); 
+        console.log(maxNum(arr));
+        console.log(minMaxNum(arr2));
+        console.log(minMaxNum(arr3));
+    </script>
+</body>
+</html>
